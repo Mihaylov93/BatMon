@@ -1,7 +1,7 @@
 #ifndef BATTERYWIDGET_H
 #define BATTERYWIDGET_H
 
-#include <QMainWindow>
+#include <QWidget>
 #include <QFile>
 #include <QTextStream>
 
@@ -11,7 +11,7 @@ namespace Ui {
     class BatteryWidget;
 }
 
-class BatteryWidget : public QMainWindow
+class BatteryWidget : public QWidget
 {
     Q_OBJECT
 

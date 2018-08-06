@@ -2,12 +2,21 @@
 #include "ui_batterywidget.h"
 
 BatteryWidget::BatteryWidget(QWidget *parent) :
-    QMainWindow(parent),
+    QWidget(parent),
     ui(new Ui::BatteryWidget)
+
 {
     ui->setupUi(this);
     this->setFocusPolicy(Qt::FocusPolicy::NoFocus);
-    this->move(this->rect().topLeft().x(),this->rect().topLeft().y());
+    //this->move(this->rect().topLeft().x(),this->rect().topLeft().y());
+
+    int ph = this->geometry().height();
+    int	px = this->geometry().x();
+    int	py = this->geometry().y();
+    int	dw = this->width();
+    int	dh = this->height();
+    this->setGeometry(px, py + ph - dh, dw, dh);
+    this->resize(QSize(16,9));
 
     setWindowFlags( Qt::Tool | Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint| Qt::FramelessWindowHint   );
 
@@ -16,7 +25,6 @@ BatteryWidget::BatteryWidget(QWidget *parent) :
     this->setAttribute(Qt::WA_NoSystemBackground, true);
     this->setAttribute(Qt::WA_PaintOnScreen, true);
     this->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-    // This probably does nothing as TWM doesnt implement ewmh
     this->setAttribute(Qt::WA_X11NetWmWindowTypeDock,true);
     this->setAttribute(Qt::WA_ShowWithoutActivating);
     this->setPalette(Qt::transparent);
