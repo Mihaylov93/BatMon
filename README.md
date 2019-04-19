@@ -1,5 +1,8 @@
 # Battery monitoring widget
 
+## Legacy branch
+### Clockwork OS v0.3 changed internal structure I am deprecating this branch as its for OS 0.2X. For v0.3 and further, please refer to master.
+
 ![freedoom](https://cdn.discordapp.com/attachments/459401282743173120/476116122622754858/capture_01.png "freedoom")
 
 ## BatMon
