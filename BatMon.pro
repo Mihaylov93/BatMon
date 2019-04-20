@@ -9,6 +9,7 @@ QT       += core gui widgets
 TARGET = BatMon
 TEMPLATE = app
 
+INSTALLDIR =
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -32,7 +33,7 @@ HEADERS += \
 FORMS += \
         batterywidget.ui
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+QMAKE_POST_LINK += $$quote(mkdir /home/cpi/apps/Menu/BatMon/)
+QMAKE_POST_LINK += $$quote(; cp -f $${PWD}/BatMon /home/cpi/apps/Menu/BatMon/BatMon)
+QMAKE_POST_LINK += $$quote(&& cp -f $${PWD}/BatMon.png /home/cpi/apps/Menu/BatMon/BatMon.png)
+QMAKE_POST_LINK += $$quote(&& cp -f $${PWD}/scripts/BatMon.sh /home/cpi/apps/Menu/BatMon/BatMon.sh)
