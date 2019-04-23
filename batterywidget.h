@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QTimer>
+#include <QProcess>
 
 namespace Ui {
     class BatteryWidget;
@@ -15,13 +16,17 @@ class BatteryWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit BatteryWidget(QWidget *parent = nullptr);
+    explicit BatteryWidget(int mseconds = 30000, int mode = 0, QWidget *parent = nullptr);
     virtual ~BatteryWidget();
-    void setTimer(int mseconds);
 private:
     Ui::BatteryWidget *ui;
-    void GetBatteryValue();
+    QString GetBatteryValue();
+    QString GetTime();
+    void UpdateLabel();
     QTimer *timer;
+    QProcess process;
+    int mode;
+    int mseconds;
 private slots:
    void refresh();
 };
