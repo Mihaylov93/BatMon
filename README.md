@@ -36,7 +36,7 @@ It reads the **/sys/class/power_supply/axp20x-battery/uevent** file.
 - twm does not appear to implement extended window manager hints [(EWMH)](https://en.wikipedia.org/wiki/Extended_Window_Manager_Hints).
 Some flags like **Qt::WA_X11NetWmWindowTypeDock** might not work for that reason.
 
-- For the same reason, the hint **Qt::WindowStaysOnTopHint** also doesn´t work, widget doesn´t stay always on top (*It does on other window manager*), a new opened window re-paints on top of it and it gets hidden. A workaround to this is having a script call the binary saving the PID in a variable and killing the widget before opening a new one, thus forcing it to paint on top of the current active window.
+- For the same reason, the hint **Qt::WindowStaysOnTopHint** also doesn´t work, widget doesn´t stay always on top (*It does on other window manager*), a new opened window re-paints on top of it and it gets hidden. A workaround to this is having a timer to hide the widget, update it and repaint it on top of the current active window.
 
 
 ## Building and installation
