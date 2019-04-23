@@ -78,37 +78,12 @@ sudo apt-get install libqtgui4
 ```
 Note: If we have the qt4-dev-tools we already have the libs.
 
-#### Content of the release zip
-The zip contains a folder called **batmon** and a script **BatMon.sh**.
-Inside the folder we can find the BatMon binary itself and **BatMon-loop.sh**.
-
-The way it works, we have the **BatMon.sh** as a launcher to add to the ui, it calls the **BatMon-loop.sh** which starts and kills the process.
-
-**BatMon.sh**
-```sh
-/home/cpi/apps/batmon/BatMon-loop.sh &
-
-```
-**/batmon/BatMon-loop.sh**
-```sh
-BASENAME=$(dirname $0)
-while true; do
-    $BASENAME/BatMon & APP_PID=$!
-    sleep 29s
-    kill $APP_PID
-    sleep 1s
-done
-
-```
 #### Installation
 
-To add it to the launcher we must copy the BatMon.sh script to **/home/cpi/apps/launcher/Menu/GameShell** and give it run permissions and cpi ownership (instead of root)
+To add it to the launcher:
 
 ```sh
-sudo chmod +x BatMon.sh
-sudo chown cpi BatMon.sh
+sudo apt-get install libqtcore4
+sudo apt-get install libqtgui4
+tar -zxvf BatMon.tar.gz -C /home/cpi/apps/Menu/
 ```
-
-For the batmon folder we need to copy it to **/home/cpi/apps** you can change this location from the **BatMon.sh** script.
-
-Don´t forget to add permissions and cpi ownership to the binary itself and the **BatMon-loop.sh** script.
