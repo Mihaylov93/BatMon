@@ -1,6 +1,7 @@
 # Battery monitoring widget
 
 ![freedoom](https://cdn.discordapp.com/attachments/459401282743173120/476116122622754858/capture_01.png "freedoom")
+![batmon](https://discourse-cdn-sjc2.com/standard17/uploads/clockworkpi/original/2X/0/01f2898d3aa600e8b7927cfd63efab5f091a4804.png "batmon")
 
 ## BatMon
 A widget for Clockwork Pi that displays the battery percentage as a overlay on top of the current window. Clockwork Pi Gameshell has a battery widget on the UI but not while playing games. This is an attempt to solve this.
