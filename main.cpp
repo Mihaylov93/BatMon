@@ -38,6 +38,6 @@ int main(int argc, char *argv[])
     }
 
     w.data()->show();
-    return a.exec();
+    return QApplication::exec();
 }
 
