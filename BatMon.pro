@@ -23,7 +23,9 @@ HEADERS += \
 FORMS += \
         batterywidget.ui
 
-QMAKE_POST_LINK += $$quote(mkdir /home/cpi/apps/Menu/BatMon/)
-QMAKE_POST_LINK += $$quote(; cp -f $${PWD}/BatMon /home/cpi/apps/Menu/BatMon/BatMon)
-QMAKE_POST_LINK += $$quote(&& cp -f $${PWD}/BatMon.png /home/cpi/apps/Menu/BatMon/BatMon.png)
-QMAKE_POST_LINK += $$quote(&& cp -f $${PWD}/scripts/BatMon.sh /home/cpi/apps/Menu/BatMon/BatMon.sh)
+!travis {
+    QMAKE_POST_LINK += $$quote(mkdir /home/cpi/apps/Menu/BatMon/)
+    QMAKE_POST_LINK += $$quote(; cp -f $${PWD}/BatMon /home/cpi/apps/Menu/BatMon/BatMon)
+    QMAKE_POST_LINK += $$quote(&& cp -f $${PWD}/BatMon.png /home/cpi/apps/Menu/BatMon/BatMon.png)
+    QMAKE_POST_LINK += $$quote(&& cp -f $${PWD}/scripts/BatMon.sh /home/cpi/apps/Menu/BatMon/BatMon.sh)
+}
