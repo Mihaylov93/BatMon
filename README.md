@@ -1,13 +1,13 @@
-# Battery monitoring widget [![Build Status](https://travis-ci.org/Mihaylov93/BatMon.svg?branch=master)](https://travis-ci.org/Mihaylov93/BatMon)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c949b506abc74ec2a49d462053e77fe8)](https://www.codacy.com/manual/Mihaylov93/BatMon?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Mihaylov93/BatMon&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/Mihaylov93/BatMon.svg?branch=master)](https://travis-ci.org/Mihaylov93/BatMon)
+# Battery monitoring widget 
 
 ![freedoom](https://cdn.discordapp.com/attachments/459401282743173120/476116122622754858/capture_01.png "freedoom")
-
 
 ## BatMon
 A widget for Clockwork Pi that displays the battery percentage as a overlay on top of the current window. Clockwork Pi Gameshell has a battery widget on the UI but not while playing games. This is an attempt to solve this.
 
 ### Features
-
 
 It reads the **/sys/class/power_supply/axp20x-battery/uevent** file.
 
@@ -33,11 +33,10 @@ It reads the **/sys/class/power_supply/axp20x-battery/uevent** file.
 
 ## Issues
 
-- twm does not appear to implement extended window manager hints [(EWMH)](https://en.wikipedia.org/wiki/Extended_Window_Manager_Hints).
+-  twm does not appear to implement extended window manager hints [(EWMH)](https://en.wikipedia.org/wiki/Extended_Window_Manager_Hints).
 Some flags like **Qt::WA_X11NetWmWindowTypeDock** might not work for that reason.
 
-- For the same reason, the hint **Qt::WindowStaysOnTopHint** also doesn´t work, widget doesn´t stay always on top (*It does on other window manager*), a new opened window re-paints on top of it and it gets hidden. A workaround to this is having a timer to hide the widget, update it and repaint it on top of the current active window.
-
+-  For the same reason, the hint **Qt::WindowStaysOnTopHint** also doesn´t work, widget doesn´t stay always on top (*It does on other window manager*), a new opened window re-paints on top of it and it gets hidden. A workaround to this is having a timer to hide the widget, update it and repaint it on top of the current active window.
 
 ## Building and installation
 
