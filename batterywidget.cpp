@@ -1,10 +1,12 @@
 #include "batterywidget.h"
 #include "ui_batterywidget.h"
-
+#include <QPainter>
+#include <QRegularExpression>
 BatteryWidget::BatteryWidget(int mseconds, int mode, QWidget *parent) : QWidget(parent), ui(new Ui::BatteryWidget)
 {
 
     ui->setupUi(this);
+
     this->mseconds = mseconds;
     this->mode = mode;
     this->setFocusPolicy(Qt::FocusPolicy::NoFocus);
@@ -14,27 +16,26 @@ BatteryWidget::BatteryWidget(int mseconds, int mode, QWidget *parent) : QWidget(
     const int py = this->geometry().y();
     const int dw = this->width();
     const int dh = this->height();
+
     this->setGeometry(px, py + ph - dh, dw, dh);
 
     switch (this->mode) {
         case 0:
-            this->resize(QSize(16, 9));
+            this->resize(QSize(21, 9));
             break;    // Battery only
         case 1:
-            this->resize(QSize(38, 9));
+            this->resize(QSize(44, 9));
             break;    // Battery and time horizontal layout
         case 2:
-            this->resize(QSize(20, 18));
+            this->resize(QSize(21, 18));
             break;    // Battery and time vertical layout
     }
 
-    setWindowFlags(Qt::Tool | Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    setWindowFlags(Qt::Widget | Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
 
-    this->setAttribute(Qt::WA_PaintOnScreen, true);
-
-    this->setPalette(Qt::transparent);
-    setStyleSheet("background-color: transparent");
-    setAutoFillBackground(false);
+    setParent(nullptr);    // Set to TopLevel-Widget
+    setAttribute(Qt::WA_NoSystemBackground, true);
+    setAttribute(Qt::WA_TranslucentBackground, true);
 
     this->showNormal();
     this->UpdateLabel();
@@ -46,7 +47,27 @@ BatteryWidget::BatteryWidget(int mseconds, int mode, QWidget *parent) : QWidget(
 
 QString BatteryWidget::GetBatteryValue()
 {
+    QString percentage;
 
+    upowerProc.start("upower",
+                     QStringList() << "-i"
+                                   << "/org/freedesktop/UPower/devices/battery_axp20x_battery");
+    upowerProc.waitForFinished();
+
+    QRegularExpression re
+        = QRegularExpression("^\\s+percentage:\\s+([0-9]{1,3}%)$", QRegularExpression::MultilineOption);
+
+    QRegularExpressionMatch match = re.match(upowerProc.readAllStandardOutput().trimmed());
+    if (!match.hasMatch())
+        percentage = GetBatteryValueFromSys();
+    else
+        percentage = match.captured(1);
+
+    return percentage;
+}
+
+QString BatteryWidget::GetBatteryValueFromSys()
+{
     QFile inputFile(QString("/sys/class/power_supply/axp20x-battery/uevent"), this);
     inputFile.open(QIODevice::ReadOnly);
     if (!inputFile.isOpen()) return nullptr;
@@ -94,7 +115,6 @@ void BatteryWidget::UpdateLabel()
 
     ui->label->setText(text);
     ui->label->adjustSize();
-    // this->showNormal();
 }
 
 void BatteryWidget::refresh()

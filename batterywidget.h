@@ -25,13 +25,16 @@ public:
 private:
     Ui::BatteryWidget *ui;
     QString GetBatteryValue();
+    QString GetBatteryValueFromSys();
     QString GetTime();
     void UpdateLabel();
     QTimer *timer;
     QProcess process;
+    QProcess upowerProc;
     int mode;
     int mseconds;
-    private slots:
+
+private slots:
     void refresh();
 };
 
