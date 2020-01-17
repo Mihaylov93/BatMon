@@ -11,7 +11,11 @@ A widget for Clockwork Pi that displays the battery percentage as a overlay on t
 
 ### Features
 
-It reads the **/sys/class/power_supply/axp20x-battery/uevent** file.
+Initially it read **/sys/class/power_supply/axp20x-battery/uevent** file and computed a percentage from the data extracted. 
+Currently **upower** is used to get the percentage from **/org/freedesktop/UPower/devices/battery_axp20x_battery**
+
+Although old way is still present as a fallback option, if the device doesn´t have upower or running it doesnt give a proper result,
+percentage display will be built from **/sys/class/power_supply/axp20x-battery/uevent** like below.
 
 #### $ cat /sys/class/power_supply/axp20x-battery/uevent
 
@@ -43,13 +47,9 @@ Some flags like **Qt::WA_X11NetWmWindowTypeDock** might not work for that reason
 
 ## Building and installation
 
-This project was made with c++ and Qt4 in order to compile it from source you need to install qt4-dev-tools
+This project was made with c++ and Qt5 in order to compile it from source you need to have Qt5 and QMake.
 
 ### Building from source
-
-```sh
- sudo apt-get install qt4-dev-tools
- ```
 
 ```sh
 qmake BatMon.pro
@@ -60,14 +60,18 @@ make
 
 You can get a precompiled package from [releases.](https://github.com/Mihaylov93/BatMon/releases "releases")
 
-It has Qt4 dependencies we need to solve by installing the libs.
+It has Qt5 dependencies that should be preinstalled in the latest OS, if for some reason it doesn´t run
+because of a library missing you can check with **readelf -f** the required libraries.
 
 ```sh
 $ readelf -d BatMon
-Dynamic section at offset 0x3ee0 contains 32 entries:
+
+Dynamic section at offset 0x5ed0 contains 34 entries:
   Tag        Type                         Name/Value
- 0x00000001 (NEEDED)                     Shared library: [libQtGui.so.4]
- 0x00000001 (NEEDED)                     Shared library: [libQtCore.so.4]
+ 0x00000001 (NEEDED)                     Shared library: [libQt5Widgets.so.5]
+ 0x00000001 (NEEDED)                     Shared library: [libQt5Gui.so.5]
+ 0x00000001 (NEEDED)                     Shared library: [libQt5Core.so.5]
+ 0x00000001 (NEEDED)                     Shared library: [libGLESv2.so.2]
  0x00000001 (NEEDED)                     Shared library: [libpthread.so.0]
  0x00000001 (NEEDED)                     Shared library: [libstdc++.so.6]
  0x00000001 (NEEDED)                     Shared library: [libm.so.6]
@@ -77,18 +81,13 @@ Dynamic section at offset 0x3ee0 contains 32 entries:
 ```
 
 ```sh
-sudo apt-get install libqtcore4
-sudo apt-get install libqtgui4
+sudo apt-get install libqtcore5 libqtgui5 
 ```
-
-Note: If we have the qt4-dev-tools we already have the libs.
 
 #### Installation
 
 To add it to the launcher:
 
 ```sh
-sudo apt-get install libqtcore4
-sudo apt-get install libqtgui4
-tar -zxvf BatMon.tar.gz -C /home/cpi/apps/Menu/
+tar -zxvf BatMon-0.5.tar.gz -C /home/cpi/apps/Menu/
 ```
