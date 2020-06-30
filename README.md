@@ -47,7 +47,7 @@ Some flags like **Qt::WA_X11NetWmWindowTypeDock** might not work for that reason
 
 ## Building and installation
 
-This project was made with c++ and Qt5 in order to compile it from source you need to have Qt5 and QMake.
+This project was made with C++ and Qt5 in order to compile it from source you need to have Qt5 and QMake.
 
 ### Building from source
 
